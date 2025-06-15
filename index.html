@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rendzz Official Website</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔥</text></svg>">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @keyframes pulse {
+      0% { box-shadow: 0 0 15px #ff2d75aa; }
+      50% { box-shadow: 0 0 25px #ff2d75ff; }
+      100% { box-shadow: 0 0 15px #ff2d75aa; }
+    }
+    body {
+      background-color: #0a0a0a;
+      color: #fff;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+      margin: 0;
+    }
+    .box {
+      background: #111;
+      padding: 30px;
+      border-radius: 12px;
+      animation: pulse 3s infinite;
+      width: 100%;
+      max-width: 400px;
+      border: 1px solid #ff2d7555;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 20px;
+    }
+    .input-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .input-container i {
+      position: absolute;
+      left: 15px;
+      color: #ff2d75;
+      width: 20px;
+      text-align: center;
+      font-size: 16px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 14px 14px 14px 45px;
+      border: 2px solid #333;
+      border-radius: 8px;
+      font-size: 14px;
+      background-color: #222;
+      color: #fff;
+      transition: all 0.3s;
+    }
+    textarea {
+      padding-left: 45px;
+      min-height: 100px;
+      resize: vertical;
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #ff2d75;
+      background-color: #252525;
+    }
+    button {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      background: linear-gradient(135deg, #ff2d75, #e6005c);
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      margin-top: 10px;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    button:hover {
+      background: linear-gradient(135deg, #e6005c, #cc0052);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(255, 45, 117, 0.3);
+    }
+    #log {
+      max-height: 200px;
+      overflow-y: auto;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      background: #0f0f0f;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #333;
+      margin-top: 25px;
+      scrollbar-width: thin;
+      scrollbar-color: #ff2d75 #0f0f0f;
+    }
+    #log::-webkit-scrollbar {
+      width: 6px;
+    }
+    #log::-webkit-scrollbar-track {
+      background: #0f0f0f;
+    }
+    #log::-webkit-scrollbar-thumb {
+      background-color: #ff2d75;
+      border-radius: 3px;
+    }
+    h2 {
+      color: #ff2d75;
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .footer {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #555;
+      text-align: center;
+    }
+    .log-success {
+      color: #4CAF50;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .log-error {
+      color: #F44336;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .log-system {
+      color: #ff2d75;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #aaa;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2><i class="fas fa-fire"></i> NGL SPAMMER BY RENDZZ OFFICIAL</h2>
+    
+    <div class="form-group">
+      <label for="username">Username Target</label>
+      <div class="input-container">
+        <i class="fas fa-at"></i>
+        <input type="text" id="username" placeholder="Masukkan username tanpa @" />
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="message">Pesan Spam</label>
+      <div class="input-container">
+        <i class="fas fa-comment-alt"></i>
+        <textarea id="message" placeholder="Tulis pesan yang akan dikirim"></textarea>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="jumlah">Jumlah Pesan</label>
+      <div class="input-container">
+        <i class="fas fa-paper-plane"></i>
+        <input type="number" id="jumlah" placeholder="Masukkan jumlah spam" />
+      </div>
+    </div>
+    
+    <button onclick="kirim()">
+      <i class="fas fa-paper-plane"></i> KIRIM SEKARANG
+    </button>
+    
+    <div id="log">
+      <span class="log-system"><i class="fas fa-terminal"></i> [SYSTEM] Log akan tampil di sini...</span>
+    </div>
+  </div>
+  <div class="footer">
+    © 2025 RENDZZ OFFICIAL | KILL YOUR PHONE 
+  </div>
+
+  <script>
+    async function kirim() {
+      const username = document.getElementById('username').value.trim();
+      const message = document.getElementById('message').value.trim();
+      const jumlah = parseInt(document.getElementById('jumlah').value);
+      const log = document.getElementById('log');
+
+      if (!username || !message || !jumlah || jumlah <= 0) {
+        alert('Harap isi semua kolom dengan benar!');
+        return;
+      }
+
+      log.innerHTML = '<span class="log-system"><i class="fas fa-sync-alt fa-spin"></i> [SYSTEM] Memulai pengiriman pesan...</span>';
+      log.scrollTop = log.scrollHeight;
+
+      const tasks = [];
+
+      for (let i = 0; i < jumlah; i++) {
+        const deviceId = 'RENDZZ' + Math.random().toString(36).substring(2, 15);
+        tasks.push(
+          fetch('https://ngl.link/api/submit', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `username=${encodeURIComponent(username)}&question=${encodeURIComponent(message)}&deviceId=${deviceId}`
+          })
+          .then(() => {
+            log.innerHTML += `<div class="log-success"><i class="fas fa-check"></i> [${new Date().toLocaleTimeString()}] Pesan #${i + 1} berhasil terkirim</div>`;
+            log.scrollTop = log.scrollHeight;
+          })
+          .catch(() => {
+            log.innerHTML += `<div class="log-error"><i class="fas fa-times"></i> [${new Date().toLocaleTimeString()}] Pesan #${i + 1} gagal dikirim</div>`;
+            log.scrollTop = log.scrollHeight;
+          })
+        );
+      }
+
+      await Promise.all(tasks);
+      log.innerHTML += `<div class="log-system"><i class="fas fa-flag-checkered"></i> [SYSTEM] Proses selesai! Total ${jumlah} pesan telah dikirim.</div>`;
+      log.scrollTop = log.scrollHeight;
+    }
+  </script>
+</body>
+</html>
