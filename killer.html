@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>RENDZZ X KILLER NGL</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Poppins", sans-serif;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* Error Screen */
+        #error-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 100%);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            text-align: center;
+        }
+
+        .error-content {
+            max-width: 90%;
+            padding: 40px;
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(255, 40, 40, 0.6);
+            border: 2px solid rgba(255, 40, 40, .5);
+            backdrop-filter: blur(10px);
+        }
+
+        .error-icon {
+            font-size: 6rem;
+            color: #ff3b3b;
+            margin-bottom: 25px;
+            animation: shake 0.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(-5px); }
+            100% { transform: translateX(5px); }
+        }
+
+        .error-title {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            color: #ff3b3b;
+            text-shadow: 0 0 20px rgba(255, 40, 40, .8);
+            font-weight: 700;
+        }
+
+        .error-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .error-details {
+            font-size: 1rem;
+            margin-bottom: 30px;
+            opacity: 0.7;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        #retry-button {
+            padding: 14px 50px;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(45deg, #ff1c1c, #c90000);
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: .3s;
+            box-shadow: 0 0 14px rgba(255, 40, 40, .4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 0 auto;
+        }
+
+        #retry-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 40, 40, .7);
+        }
+
+        /* Menu Sambutan Full Layar */
+        #welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.5s ease;
+        }
+
+        #welcome-screen.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .welcome-content {
+            text-align: center;
+            max-width: 90%;
+            padding: 30px;
+            background: rgba(19, 19, 19, 0.8);
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(255, 40, 40, 0.4);
+            border: 1px solid rgba(255, 40, 40, .2);
+            backdrop-filter: blur(10px);
+        }
+
+        .welcome-icon {
+            font-size: 5rem;
+            color: #ff3b3b;
+            margin-bottom: 25px;
+            animation: pulse 2s infinite;
+            text-shadow: 0 0 20px rgba(255, 40, 40, .7);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .welcome-title {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            color: #ff3b3b;
+            text-shadow: 0 0 10px rgba(255, 40, 40, .7);
+            font-weight: 700;
+        }
+
+        .welcome-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        #welcome-ok {
+            padding: 14px 50px;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(45deg, #ff1c1c, #c90000);
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: .3s;
+            box-shadow: 0 0 14px rgba(255, 40, 40, .4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 0 auto;
+        }
+
+        #welcome-ok:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 40, 40, .7);
+        }
+
+        .wrapper {
+            max-width: 480px;
+            margin: 40px auto;
+            animation: fadeIn .8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {opacity:0; transform:translateY(20px);}
+            to {opacity:1; transform:translateY(0);}
+        }
+
+        .container {
+            background: rgba(19, 19, 19, 0.9);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 0 25px rgba(255, 40, 40, 0.35);
+            border: 1px solid rgba(255, 40, 40, .25);
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        h2 {
+            color: #ff3b3b;
+            text-shadow: 0 0 10px rgba(255, 40, 40, .7);
+            font-weight: 600;
+            font-size: 1.8rem;
+        }
+
+        .header-icon {
+            font-size: 2rem;
+            color: #ff3b3b;
+            text-shadow: 0 0 10px rgba(255, 40, 40, .7);
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 22px;
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ff3b3b;
+            font-size: 1.1rem;
+            z-index: 2;
+        }
+
+        label {
+            opacity: .9;
+            font-size: 14px;
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .label-icon {
+            color: #ff3b3b;
+            font-size: 1rem;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 14px 14px 14px 45px;
+            border-radius: 12px;
+            border: none;
+            background: #1f1f1f;
+            color: #fff;
+            outline: none;
+            border: 1px solid #2a2a2a;
+            transition: .3s;
+            font-family: "Poppins", sans-serif;
+            font-size: 15px;
+        }
+
+        textarea {
+            padding-left: 14px;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: #ff3b3b;
+            box-shadow: 0 0 12px rgba(255, 40, 40, .5);
+            background: #252525;
+        }
+
+        /* Styling khusus untuk select jumlah */
+        .jumlah-container {
+            position: relative;
+        }
+
+        .jumlah-container::before {
+            content: "⚡";
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ff3b3b;
+            font-size: 1.2rem;
+            z-index: 2;
+        }
+
+        #jumlah {
+            padding-left: 45px;
+            background: #1f1f1f url('data:image/svg+xml;utf8,<svg fill="%23ff3b3b" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 12px center;
+            background-size: 16px;
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+        }
+
+        #jumlah option {
+            background: #1f1f1f;
+            color: white;
+            padding: 10px;
+        }
+
+        button {
+            width: 100%;
+            padding: 16px;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(45deg, #ff1c1c, #c90000);
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: .3s;
+            box-shadow: 0 0 14px rgba(255, 40, 40, .4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(255, 40, 40, .7);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 0.85rem;
+            opacity: 0.7;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .feature {
+            background: rgba(31, 31, 31, 0.7);
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(255, 40, 40, .1);
+            transition: .3s;
+        }
+
+        .feature:hover {
+            transform: translateY(-3px);
+            border-color: rgba(255, 40, 40, .3);
+        }
+
+        .feature-icon {
+            font-size: 1.8rem;
+            color: #ff3b3b;
+            margin-bottom: 10px;
+        }
+
+        .feature-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .feature-desc {
+            font-size: 0.75rem;
+            opacity: 0.8;
+        }
+
+        .copyright {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(31, 31, 31, 0.7);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 40, 40, .1);
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ff3b3b;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        /* Security Features */
+        .security-features {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(31, 31, 31, 0.7);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 40, 40, .1);
+        }
+
+        .security-title {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            color: #ff3b3b;
+            font-weight: 600;
+        }
+
+        .security-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .security-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            font-size: 0.8rem;
+        }
+
+        .security-item i {
+            color: #ff3b3b;
+        }
+
+        /* Animasi untuk jumlah */
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px rgba(255, 59, 59, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(255, 59, 59, 0.8); }
+            100% { box-shadow: 0 0 5px rgba(255, 59, 59, 0.5); }
+        }
+
+        .jumlah-glow {
+            animation: glow 2s infinite;
+        }
+
+        /* Connection Status */
+        .connection-status {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 1001;
+            transition: all 0.3s ease;
+        }
+
+        .status-online {
+            background: rgba(0, 255, 0, 0.2);
+            color: #00ff00;
+            border: 1px solid #00ff00;
+        }
+
+        .status-offline {
+            background: rgba(255, 0, 0, 0.2);
+            color: #ff0000;
+            border: 1px solid #ff0000;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Error Screen -->
+    <div id="error-screen">
+        <div class="error-content">
+            <div class="error-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h1 class="error-title">502 BAD GATEWAY</h1>
+            <p class="error-subtitle">OOPS RENDZZ ERROR</p>
+            <div class="error-details">
+                <i class="fas fa-shield-alt"></i> VPN/Proxy Terdeteksi!<br>
+                <i class="fas fa-wifi-slash"></i> Koneksi Internet Terputus!<br>
+                <i class="fas fa-ban"></i> Access Diblokir oleh Sistem!
+            </div>
+            <button id="retry-button">
+                <i class="fas fa-redo"></i> Coba Lagi
+            </button>
+        </div>
+    </div>
+
+    <!-- Connection Status -->
+    <div id="connection-status" class="connection-status status-online">
+        <i class="fas fa-wifi"></i> ONLINE
+    </div>
+
+    <!-- Menu Sambutan Full Layar -->
+    <div id="welcome-screen">
+        <div class="welcome-content">
+            <div class="welcome-icon">
+                <i class="fas fa-comment-dots"></i>
+            </div>
+            <h1 class="welcome-title">NGL SPAMER</h1>
+            <p class="welcome-subtitle">Kirim pesan anonim ke akun NGL dengan mudah dan cepat.<br>Tanpa delay, langsung terkirim!</p>
+            <button id="welcome-ok">
+                <i class="fas fa-check-circle"></i> Mulai Sekarang
+            </button>
+        </div>
+    </div>
+
+    <!-- Form Utama -->
+    <div class="wrapper">
+        <div class="container">
+            <div class="header">
+                <i class="fas fa-paper-plane header-icon"></i>
+                <h2>Isi Formulir di bawah</h2>
+            </div>
+
+            <div class="input-group">
+                <label>
+                    <i class="fas fa-user label-icon"></i> Username NGL (tanpa @):
+                </label>
+                <div style="position: relative;">
+                    <i class="fas fa-at"></i>
+                    <input type="text" id="username" placeholder="contoh: rendzz">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>
+                    <i class="fas fa-comment-dots label-icon"></i> Pesan:
+                </label>
+                <textarea id="pesan" rows="3" placeholder="contoh : Kontol..."></textarea>
+            </div>
+
+            <div class="input-group">
+                <label>
+                    <i class="fas fa-bolt label-icon"></i> Jumlah:
+                </label>
+                <div class="jumlah-container">
+                    <select id="jumlah" class="jumlah-glow">
+                        <option value="1">1x - Cepat</option>
+                        <option value="2">2x - Double</option>
+                        <option value="3">3x - Triple</option>
+                        <option value="5">5x - Power</option>
+                        <option value="10">10x - Maximum</option>
+                    </select>
+                </div>
+            </div>
+
+            <button id="btnKirim">
+                <i class="fas fa-paper-plane"></i> Kirim Sekarang
+            </button>
+            
+            <div class="security-features">
+                <div class="security-title">
+                    <i class="fas fa-shield-alt"></i> Fitur Keamanan
+                </div>
+                <div class="security-grid">
+                    <div class="security-item">
+                        <i class="fas fa-lock"></i>
+                        <span>Encrypted Storage</span>
+                    </div>
+                    <div class="security-item">
+                        <i class="fas fa-trash"></i>
+                        <span>Auto Clear History</span>
+                    </div>
+                    <div class="security-item">
+                        <i class="fas fa-user-secret"></i>
+                        <span>Incognito Mode</span>
+                    </div>
+                    <div class="security-item">
+                        <i class="fas fa-sync"></i>
+                        <span>IP Rotator</span>
+                    </div>
+                    <div class="security-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Username Validator</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-value" id="total-sent">0</div>
+                    <div class="stat-label">Total Dikirim</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="success-rate">100%</div>
+                    <div class="stat-label">Tingkat Sukses</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">0s</div>
+                    <div class="stat-label">Tanpa Delay</div>
+                </div>
+            </div>
+            
+            <div class="features">
+                <div class="feature">
+                    <i class="fas fa-bolt feature-icon"></i>
+                    <div class="feature-title">Super Cepat</div>
+                    <div class="feature-desc">Tanpa delay, langsung terkirim</div>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-shield-alt feature-icon"></i>
+                    <div class="feature-title">100% Anonim</div>
+                    <div class="feature-desc">Identitas Anda aman</div>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-infinity feature-icon"></i>
+                    <div class="feature-title">Unlimited</div>
+                    <div class="feature-desc">Kirim berulang kali</div>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-mobile-alt feature-icon"></i>
+                    <div class="feature-title">Responsif</div>
+                    <div class="feature-desc">Bisa di semua perangkat</div>
+                </div>
+            </div>
+            
+            <div class="footer">
+                <p><i class="fas fa-info-circle"></i> Pastikan username NGL sudah benar sebelum mengirim</p>
+                <div class="copyright">
+                    <i class="far fa-copyright"></i> Copyright 2025 rendzz - NGL Sender
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========= VARIABEL GLOBAL =========
+        let totalSent = localStorage.getItem('nglTotalSent') ? parseInt(localStorage.getItem('nglTotalSent')) : 0;
+        let successfulSends = localStorage.getItem('nglSuccessfulSends') ? parseInt(localStorage.getItem('nglSuccessfulSends')) : 0;
+        let isOnline = true;
+
+        // ========= DETEKSI OFFLINE & VPN/PROXY =========
+        function checkConnection() {
+            // Cek koneksi internet
+            if (!navigator.onLine) {
+                showErrorScreen('OFFLINE', 'Koneksi internet terputus!');
+                return false;
+            }
+
+            // Cek VPN/Proxy dengan beberapa metode
+            if (detectVPN()) {
+                showErrorScreen('VPN/PROXY', 'VPN/Proxy terdeteksi!');
+                return false;
+            }
+
+            // Cek latency
+            checkLatency();
+            return true;
+        }
+
+        function detectVPN() {
+            // Method 1: Cek timezone
+            const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            const suspiciousTimezones = ['UTC', 'GMT'];
+            
+            // Method 2: Cek bahasa
+            const languages = navigator.languages;
+            const hasSuspiciousLang = languages.some(lang => lang.includes('en-'));
+            
+            // Method 3: Cek WebRTC leak (browser support)
+            if (typeof window.RTCPeerConnection !== 'undefined') {
+                const pc = new RTCPeerConnection({iceServers:[]});
+                let hasLocalIP = false;
+                
+                pc.createDataChannel('');
+                pc.createOffer().then(offer => pc.setLocalDescription(offer));
+                
+                pc.onicecandidate = (ice) => {
+                    if (!ice || !ice.candidate || !ice.candidate.candidate) return;
+                    const candidate = ice.candidate.candidate;
+                    if (candidate.includes('192.168.') || candidate.includes('10.') || candidate.includes('172.')) {
+                        hasLocalIP = true;
+                    }
+                };
+                
+                setTimeout(() => {
+                    if (!hasLocalIP) return true;
+                }, 1000);
+            }
+
+            // Method 4: Cek screen resolution (VPN sering punya resolution tertentu)
+            const width = screen.width;
+            const height = screen.height;
+            const commonVPNResolutions = [[1024, 768], [1366, 768], [1920, 1080]];
+            const isCommonResolution = commonVPNResolutions.some(res => res[0] === width && res[1] === height);
+
+            // Jika 2 atau lebih kondisi terpenuhi, anggap VPN
+            let vpnScore = 0;
+            if (suspiciousTimezones.includes(timezone)) vpnScore++;
+            if (hasSuspiciousLang) vpnScore++;
+            if (isCommonResolution) vpnScore++;
+
+            return vpnScore >= 2;
+        }
+
+        function checkLatency() {
+            const start = Date.now();
+            fetch('https://www.google.com/favicon.ico?t=' + Date.now(), {
+                method: 'HEAD',
+                mode: 'no-cors',
+                cache: 'no-cache'
+            }).then(() => {
+                const latency = Date.now() - start;
+                if (latency > 2000) { // Jika latency > 2 detik
+                    showErrorScreen('HIGH_LATENCY', 'Koneksi lambat terdeteksi!');
+                }
+            }).catch(() => {
+                showErrorScreen('TIMEOUT', 'Timeout koneksi!');
+            });
+        }
+
+        function showErrorScreen(type, message) {
+            isOnline = false;
+            $('#error-screen').show();
+            $('#connection-status')
+                .removeClass('status-online')
+                .addClass('status-offline')
+                .html('<i class="fas fa-wifi-slash"></i> OFFLINE');
+            
+            // Update error message berdasarkan type
+            let errorMsg = '';
+            switch(type) {
+                case 'OFFLINE':
+                    errorMsg = 'Koneksi internet terputus! Silakan cek koneksi Anda.';
+                    break;
+                case 'VPN/PROXY':
+                    errorMsg = 'VPN/Proxy terdeteksi! Matikan VPN/Proxy untuk melanjutkan.';
+                    break;
+                case 'HIGH_LATENCY':
+                    errorMsg = 'Koneksi terlalu lambat! Silakan perbaiki koneksi internet.';
+                    break;
+                case 'TIMEOUT':
+                    errorMsg = 'Timeout koneksi! Server tidak merespons.';
+                    break;
+                default:
+                    errorMsg = 'Terjadi kesalahan koneksi!';
+            }
+            
+            $('.error-details').html(`
+                <i class="fas fa-exclamation-circle"></i> ${errorMsg}<br>
+                <i class="fas fa-clock"></i> ${new Date().toLocaleString()}<br>
+                <i class="fas fa-user-shield"></i> BOOKED BY RENDZZ
+            `);
+        }
+
+        function hideErrorScreen() {
+            isOnline = true;
+            $('#error-screen').hide();
+            $('#connection-status')
+                .removeClass('status-offline')
+                .addClass('status-online')
+                .html('<i class="fas fa-wifi"></i> ONLINE');
+        }
+
+        // ========= EVENT LISTENERS =========
+        $(document).ready(function() {
+            // Cek koneksi saat load
+            if (!checkConnection()) {
+                return;
+            }
+
+            // Event listener untuk online/offline
+            window.addEventListener('online', function() {
+                if (checkConnection()) {
+                    hideErrorScreen();
+                }
+            });
+
+            window.addEventListener('offline', function() {
+                showErrorScreen('OFFLINE', 'Koneksi internet terputus!');
+            });
+
+            // Retry button
+            $('#retry-button').click(function() {
+                if (checkConnection()) {
+                    hideErrorScreen();
+                }
+            });
+
+            // Tampilkan menu sambutan
+            $('#welcome-screen').show();
+            
+            // Ketika tombol OK ditekan
+            $('#welcome-ok').click(function() {
+                $('#welcome-screen').addClass('fade-out');
+                setTimeout(() => {
+                    $('#welcome-screen').hide();
+                }, 500);
+            });
+
+            // Load statistik saat halaman dimuat
+            updateStatsDisplay();
+        });
+
+        // ========= FIX TOTAL USERNAME =========
+        function formatUsername(u) {
+            return u.replace("@", "").trim();
+        }
+
+        // ========= FIX TERBARU ==========
+        async function sendToNGL(username, message) {
+            // Cek koneksi dulu
+            if (!isOnline) {
+                swal({
+                    title: "Gagal!",
+                    text: "Tidak ada koneksi internet!",
+                    icon: "error",
+                    button: "Mengerti"
+                });
+                return false;
+            }
+
+            try {
+                await fetch("https://ngl.link/api/submit", {
+                    method: "POST",
+                    headers: {"Content-Type": "application/x-www-form-urlencoded"},
+                    body: new URLSearchParams({
+                        username: username,
+                        question: message,
+                        deviceId: crypto.randomUUID(),
+                        referrer: ""
+                    })
+                });
+
+                return true;
+
+            } catch (err) {
+                // Jika error, cek koneksi lagi
+                if (!navigator.onLine) {
+                    showErrorScreen('OFFLINE', 'Koneksi internet terputus!');
+                }
+                return false;
+            }
+        }
+
+        // ========= FORMAT ANGKA =========
+        function formatNumber(num) {
+            if (num >= 1000) {
+                return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+            }
+            return num.toString();
+        }
+
+        // ========= UPDATE STATISTIK =========
+        function updateStats(successCount, totalCount) {
+            totalSent += totalCount;
+            successfulSends += successCount;
+            
+            // Simpan ke localStorage
+            localStorage.setItem('nglTotalSent', totalSent);
+            localStorage.setItem('nglSuccessfulSends', successfulSends);
+            
+            updateStatsDisplay();
+        }
+
+        // ========= TAMPILKAN STATISTIK =========
+        function updateStatsDisplay() {
+            $('#total-sent').text(formatNumber(totalSent));
+            
+            const successRate = totalSent > 0 ? Math.round((successfulSends / totalSent) * 100) : 100;
+            $('#success-rate').text(successRate + '%');
+        }
+
+        // ========= BUTTON KIRIM =========
+        $("#btnKirim").click(async function() {
+            // Cek koneksi dulu
+            if (!checkConnection()) {
+                return;
+            }
+
+            let user = formatUsername($("#username").val());
+            let pesan = $("#pesan").val();
+            let jumlah = parseInt($("#jumlah").val());
+
+            if (!user || !pesan) {
+                swal({
+                    title: "Gagal!",
+                    text: "Username & pesan wajib diisi!",
+                    icon: "error",
+                    button: "Mengerti"
+                });
+                return;
+            }
+
+            let sukses = 0;
+            
+            // Tampilkan loading
+            const originalText = $(this).html();
+            $(this).html('<i class="fas fa-spinner fa-spin"></i> Mengirim...');
+            $(this).prop('disabled', true);
+
+            // Kirim pesan
+            for (let i = 0; i < jumlah; i++) {
+                let hasil = await sendToNGL(user, pesan);
+                if (hasil) sukses++;
+                
+                // Update progress
+                $(this).html(`<i class="fas fa-spinner fa-spin"></i> Mengirim... (${i+1}/${jumlah})`);
+            }
+
+            // Update statistik
+            updateStats(sukses, jumlah);
+
+            // Reset button
+            $(this).html(originalText);
+            $(this).prop('disabled', false);
+
+            // Tampilkan hasil
+            swal({
+                title: "Berhasil!",
+                text: `${sukses} dari ${jumlah} pesan berhasil dikirim ke ${user}!`,
+                icon: "success",
+                button: "OK"
+            });
+        });
+
+        // ========= FITUR TAMBAHAN =========
+        $(document).ready(function() {
+            $('#username').focus();
+        });
+
+        $(document).ready(function() {
+            $('#pesan').keypress(function(e) {
+                if(e.which == 13 && !e.shiftKey) {
+                    e.preventDefault();
+                    $('#btnKirim').click();
+                }
+            });
+        });
+
+        $(document).ready(function() {
+            $('#jumlah').hover(
+                function() {
+                    $(this).addClass('jumlah-glow');
+                },
+                function() {
+                    $(this).removeClass('jumlah-glow');
+                }
+            );
+        });
+    </script>
+</body>
+</html>
